@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <h1>Listagem de Agendamentos Cirúrgicos</h1>
+    <header>
+      <img src="../assets/logoFixapp.png" alt="Logo FinxApp" class="logo" />
+      <h1>Solicitações cirúrgicas</h1>
+    </header>
     <FilterRequests @filter="applyFilter" @sort="sortRequests" />
     <SurgicalRequestList
-      :requests="filteredRequests"
+      :requests="paginatedRequests"
       @pageChange="handlePageChange"
     />
     <Pagination
@@ -14,78 +17,133 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, computed, onMounted } from "vue";
 import api from "@/utils/api";
 import SurgicalRequestList from "@/components/SurgicalRequestList.vue";
 import Pagination from "@/components/Pagination.vue";
 import FilterRequests from "@/components/FilterRequests.vue";
+import { filterRequests, sortRequests } from "@/utils/requestHelpers";
+import type { SurgicalRequest } from "@/types/surgicalRequest"; // Importando o tipo
 
-export default {
+export default defineComponent({
   components: {
     SurgicalRequestList,
     Pagination,
     FilterRequests,
   },
-  data() {
-    return {
-      requests: [],
-      currentPage: 1,
-      itemsPerPage: 5,
-      filterText: "",
-      sortOrder: "desc",
-    };
-  },
-  computed: {
-    filteredRequests() {
-      return this.requests
-        .filter((request) => {
-          const medicoMatch = request.medico.nome
-            .toLowerCase()
-            .includes(this.filterText.toLowerCase());
-          const pacienteMatch = request.paciente.nome
-            .toLowerCase()
-            .includes(this.filterText.toLowerCase());
-          return medicoMatch || pacienteMatch;
-        })
-        .sort((a, b) => {
-          const dateA = new Date(a.dataCriacao);
-          const dateB = new Date(b.dataCriacao);
-          return this.sortOrder === "desc" ? dateB - dateA : dateA - dateB;
-        })
-        .slice(
-          (this.currentPage - 1) * this.itemsPerPage,
-          this.currentPage * this.itemsPerPage
-        );
-    },
-    totalPages() {
-      return Math.ceil(this.requests.length / this.itemsPerPage);
-    },
-  },
-  methods: {
-    async fetchRequests() {
+  setup() {
+    const requests = ref<SurgicalRequest[]>([]);
+    const currentPage = ref(1);
+    const itemsPerPage = 5;
+    const filterText = ref("");
+    const sortOrder = ref("desc");
+
+    const filteredRequests = computed(() =>
+      filterRequests(requests.value, filterText.value)
+    );
+
+    const sortedRequests = computed(() =>
+      sortRequests(filteredRequests.value, sortOrder.value)
+    );
+
+    const paginatedRequests = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage;
+      return sortedRequests.value.slice(start, start + itemsPerPage);
+    });
+
+    const totalPages = computed(() =>
+      Math.ceil(sortedRequests.value.length / itemsPerPage)
+    );
+
+    const fetchRequests = async () => {
       try {
         const response = await api.get("data");
-        this.requests = response.data;
+        requests.value = response.data;
       } catch (error) {
         console.error("Erro ao buscar os dados:", error);
       }
-    },
-    applyFilter(filterText) {
-      this.filterText = filterText;
-      this.currentPage = 1;
-    },
-    sortRequests(order) {
-      this.sortOrder = order;
-      this.currentPage = 1;
-    },
-    handlePageChange(page) {
-      this.currentPage = page;
-    },
+    };
+
+    const applyFilter = (filterTextValue: string) => {
+      filterText.value = filterTextValue;
+      currentPage.value = 1;
+    };
+
+    const sortRequestsHandler = (order: string) => {
+      sortOrder.value = order;
+      currentPage.value = 1;
+    };
+
+    const handlePageChange = (page: number) => {
+      currentPage.value = page;
+    };
+
+    onMounted(fetchRequests);
+
+    return {
+      requests,
+      currentPage,
+      paginatedRequests,
+      totalPages,
+      applyFilter,
+      sortRequests: sortRequestsHandler,
+      handlePageChange,
+    };
   },
-  mounted() {
-    this.fetchRequests();
-  },
-};
+});
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import "@/styles/global.scss";
+
+#app {
+  width: 960px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0;
+  }
+}
+
+h1 {
+  font-family: "Manrope", Sans-serif;
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding: 1rem 0;
+  color: $color-secondary;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.logo {
+  height: fit-content;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  @media (max-width: 768px) {
+    max-width: 200px;
+  }
+}
+</style>

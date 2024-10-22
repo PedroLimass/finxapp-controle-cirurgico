@@ -8,16 +8,18 @@ export function formatDate(dateString: string): string {
     second: "2-digit",
   };
   const date = new Date(dateString);
-  return (
-    // date.toLocaleDateString("pt-BR", options).replace(/\//g, "-") +
-    // " " +
-    date.toLocaleTimeString("pt-BR", options)
-  );
+  return date.toLocaleTimeString("pt-BR", options);
 }
 
 export function calculateAge(birthDate: string): number {
   const birth = new Date(birthDate);
-  const ageDiff = Date.now() - birth.getTime();
-  const ageDate = new Date(ageDiff);
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+
+  const monthDiff = today.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+
+  return age;
 }

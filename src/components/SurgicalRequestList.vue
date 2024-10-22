@@ -56,24 +56,48 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/styles/global.scss";
+
 table {
-  width: 100%;
+  border-spacing: 1;
   border-collapse: collapse;
-}
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
+  td,
+  th {
+    padding-left: 8px;
+  }
 
-th {
-  background-color: #f2f2f2;
-}
+  thead tr {
+    height: 60px;
+    background: $color-primary;
+    font-size: 16px;
+    color: $color-white;
+    font-weight: bold;
+  }
 
-tbody tr:hover {
-  background-color: #f5f5f5;
+  tbody tr {
+    height: 48px;
+    border-bottom: 1px solid $color-grey-light;
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  td,
+  th {
+    text-align: center;
+    align-content: center;
+  }
+
+  tbody tr:hover {
+    background-color: $color-grey-light;
+  }
 }
 </style>
