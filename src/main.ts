@@ -1,12 +1,11 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 import App from "./App.vue";
-import router from './router'
+import router from "./router";
 
-import './assets/main.css'
-// import '@/styles/global.scss'
+import "@/styles/global.scss";
 
 new Vue({
   router,
-  render: (h) => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
