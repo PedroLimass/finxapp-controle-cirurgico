@@ -1,0 +1,122 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "medico": {
+        "nome": "Afonso Silva"
+      },
+      "paciente": {
+        "nome": "Gustavo Santos",
+        "dataNascimento": "2023-08-21"
+      },
+      "dataCriacao": "2024-09-20T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "medico": {
+        "nome": "Fernando Santos"
+      },
+      "paciente": {
+        "nome": "Jurandir Santos",
+        "dataNascimento": "1999-08-21"
+      },
+      "dataCriacao": "2024-09-20T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "medico": {
+        "nome": "Carla Oliveira"
+      },
+      "paciente": {
+        "nome": "Marta Souza",
+        "dataNascimento": "1987-05-15"
+      },
+      "dataCriacao": "2024-09-21T10:15:00Z"
+    },
+    {
+      "id": 4,
+      "medico": {
+        "nome": "Beatriz Santos"
+      },
+      "paciente": {
+        "nome": "Pedro Almeida",
+        "dataNascimento": "1995-04-10"
+      },
+      "dataCriacao": "2024-09-21T14:45:00Z"
+    },
+    {
+      "id": 5,
+      "medico": {
+        "nome": "Marcos Lima"
+      },
+      "paciente": {
+        "nome": "João Pereira",
+        "dataNascimento": "2000-02-25"
+      },
+      "dataCriacao": "2024-09-22T09:30:00Z"
+    },
+    {
+      "id": 6,
+      "medico": {
+        "nome": "Larissa Costa"
+      },
+      "paciente": {
+        "nome": "Ana Martins",
+        "dataNascimento": "1978-11-19"
+      },
+      "dataCriacao": "2024-09-23T08:50:00Z"
+    },
+    {
+      "id": 7,
+      "medico": {
+        "nome": "Hélio Ribeiro"
+      },
+      "paciente": {
+        "nome": "Carlos Silva",
+        "dataNascimento": "1985-06-30"
+      },
+      "dataCriacao": "2024-09-23T14:10:00Z"
+    },
+    {
+      "id": 8,
+      "medico": {
+        "nome": "Fernanda Alves"
+      },
+      "paciente": {
+        "nome": "Maria Sousa",
+        "dataNascimento": "1990-10-13"
+      },
+      "dataCriacao": "2024-09-24T11:45:00Z"
+    },
+    {
+      "id": 9,
+      "medico": {
+        "nome": "Eduardo Gomes"
+      },
+      "paciente": {
+        "nome": "Paulo Ferreira",
+        "dataNascimento": "1970-04-22"
+      },
+      "dataCriacao": "2024-09-25T15:30:00Z"
+    },
+    {
+      "id": 10,
+      "medico": {
+        "nome": "Camila Duarte"
+      },
+      "paciente": {
+        "nome": "Julia Costa",
+        "dataNascimento": "1988-09-09"
+      },
+      "dataCriacao": "2024-09-26T09:00:00Z"
+    }
+  ],
+  "paginacao": {
+    "paginaAtual": 1,
+    "itensPorPagina": 5,
+    "totalDePaginas": 2,
+    "totalDeItens": 10,
+    "next_page_url": "/api/items?page=2",
+    "prev_page_url": "/api/items?page=1"
+  }
+}
