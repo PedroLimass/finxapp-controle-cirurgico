@@ -28,6 +28,23 @@ Este projeto é um sistema de gerenciamento de solicitações cirúrgicas, desen
 - **axios**: Biblioteca para realizar requisições HTTP.
 - **Conventional Commits**: Segue boas práticas para a padronização de commits.
 
+## Estrutura de Diretórios
+
+```
+├── public/               # Arquivos públicos
+├── src/                  # Código-fonte
+│   ├── assets/           # Arquivos estáticos (imagens, fontes, etc.)
+│   ├── components/       # Componentes Vue.js
+│   ├── services/         # Configuração e serviços HTTP (axios)
+│   ├── styles/           # Arquivos SCSS globais
+│   │   └── global.scss   # Definições de cores e reset de estilo
+│   └── views/            # Vistas principais da aplicação
+├── json-server/          # Dados mockados para o json-server
+├── .eslintrc.js          # Configuração do ESLint
+├── vite.config.js        # Configuração do Vite
+└── README.md             # Este arquivo
+```
+
 
 # Como Contribuir
 - Faça um fork deste repositório.
